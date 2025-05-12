@@ -1,14 +1,13 @@
 import React from "react";
 import { useState, useRef } from "react";
-import { useGLTF, Outlines, useCursor } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import gsap from "gsap";
 
 export default function DessertHex(props) {
   const { nodes, materials } = useGLTF("./3dModels/dessertHex.glb");
 
   const hexRef = useRef();
-  const [hovered, hover] = useState(false);
-  useCursor(hovered);
+  const [hover, setHover] = useState(false);
 
   const [rotationIndex, setRotationIndex] = useState(0);
   const step = -Math.PI / 3;
@@ -27,6 +26,33 @@ export default function DessertHex(props) {
     }
   };
 
+  const handlePointerEnter = (e) => {
+    e.stopPropagation();
+    setHover(true);
+    if (hexRef.current) {
+      gsap.to(hexRef.current.scale, {
+        x: 0.55,
+        y: 0.55,
+        z: 0.55,
+        duration: 0.2,
+        ease: "power1.in",
+      });
+    }
+  };
+
+  const handlePointerLeave = () => {
+    setHover(false);
+    if (hexRef.current) {
+      gsap.to(hexRef.current.scale, {
+        x: 0.57,
+        y: 0.57,
+        z: 0.57,
+        duration: 0.2,
+        ease: "power1.out",
+      });
+    }
+  };
+
   return (
     <group
       {...props}
@@ -35,8 +61,6 @@ export default function DessertHex(props) {
       scale={[0.57, 0.57, 0.57]}
       rotation={[0, Math.PI / 6, 0]}
       onClick={handleClick}
-      onPointerOver={(e) => (e.stopPropagation(), hover(true))}
-      onPointerOut={() => hover(false)}
     >
       <mesh
         castShadow
@@ -62,6 +86,8 @@ export default function DessertHex(props) {
         receiveShadow
         geometry={nodes.geometryData_3.geometry}
         material={materials.hex}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
       >
         {/* here should be the outline component */}
       </mesh>
