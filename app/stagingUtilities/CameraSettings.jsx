@@ -1,24 +1,42 @@
+import { useRef, useEffect } from "react";
 import { CameraControls } from "@react-three/drei";
+import gsap from "gsap";
 
 export default function CameraSettings() {
+  const controlsRef = useRef();
+
+  useEffect(() => {
+    const angle = Math.PI / 2;
+    const startDistance = 10;
+    const endDistance = 2;
+
+    const state = { distance: startDistance };
+
+    gsap.to(state, {
+      distance: endDistance,
+      duration: 2,
+      ease: "power2.out",
+      onUpdate: () => {
+        const d = state.distance;
+        const x = d * Math.sin(angle);
+        const y = d * Math.sin(angle);
+        const z = d * Math.cos(angle);
+
+        controlsRef.current?.setLookAt(x, y, z, 0, 0, 0, false);
+      },
+    });
+  }, []);
+
   return (
     <CameraControls
+      ref={controlsRef}
       makeDefault
-      // Start with a top-down view
-      polarAngle={Math.PI / 4} // 45 degrees from top (good angle to see the terrain)
-      azimuthAngle={0}
-      // Prevent seeing underneath (only allow looking from above)
-      minPolarAngle={0} // Small value if want to prevent exactly top-down
-      maxPolarAngle={Math.PI / 2.5} // Limit how far down you can tilt
-      // Allow full rotation around the terrain
+      minPolarAngle={0}
+      maxPolarAngle={Math.PI / 2.5}
       minAzimuthAngle={-Infinity}
       maxAzimuthAngle={Infinity}
-      // Set initial distance
-      distance={10}
-      // Limit zoom range
       minDistance={0.5}
       maxDistance={8}
-      // Smooth damping for better control
       dampingFactor={0.05}
     />
   );

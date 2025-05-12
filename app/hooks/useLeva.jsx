@@ -3,14 +3,14 @@ import { useControls, folder } from "leva";
 export default function useLeva() {
   const controls = useControls({
     "hex-grid": folder({
-      hexRadius: {
+      hexScale: {
         value: 0.57,
         min: 0.1,
         max: 0.57,
         step: 0.01,
       },
       rings: {
-        value: 5,
+        value: 1,
         min: 1,
         max: 10,
       },

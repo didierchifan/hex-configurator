@@ -42,23 +42,3 @@ export default function Experience() {
     </Canvas>
   );
 }
-
-{
-  /* the hexagon centeres that comes from the grid algo */
-}
-{
-  /* <Cube /> */
-}
-{
-  /* <points>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            array={positions}
-            count={points.length}
-            itemSize={3}
-          />
-        </bufferGeometry>
-        <pointsMaterial color="hotpink" size={0.1} sizeAttenuation={true} />
-      </points> */
-}
