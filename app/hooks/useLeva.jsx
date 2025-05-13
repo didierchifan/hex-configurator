@@ -11,8 +11,9 @@ export default function useLeva() {
       },
       rings: {
         value: 0,
-        min: 0,
+        min: 1,
         max: 10,
+        step: 1,
       },
       gap: {
         value: 0.58,

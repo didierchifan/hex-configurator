@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import gsap from "gsap";
 
-export default function DessertHex(props) {
+export default function CenterHex(props) {
   const { nodes, materials } = useGLTF("./3dModels/dessertHex.glb");
 
   const hexRef = useRef();
@@ -62,6 +62,25 @@ export default function DessertHex(props) {
       rotation={[0, Math.PI / 6, 0]}
       onClick={handleClick}
     >
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.geometryData.geometry}
+        material={materials.bones}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.geometryData_1.geometry}
+        material={materials.rock}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.geometryData_2.geometry}
+        material={materials.sand}
+      />
+
       <mesh
         castShadow
         receiveShadow

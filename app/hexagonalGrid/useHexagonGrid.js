@@ -71,7 +71,7 @@ export default function useHexagonGrid({ rings, gap }) {
     return { points: pts, hexMap }; // Return the points and hexMap
   }, [rings, gap]);
 
-  return { points, hexMap };
+  return points;
 }
 
 export function getValidNeighbors(hex, hexMap) {

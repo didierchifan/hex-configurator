@@ -16,6 +16,8 @@ import HexGridGeometry from "./hexagonalGrid/HexGridGeometry";
 import { Center } from "@react-three/drei";
 import CameraSettings from "./stagingUtilities/CameraSettings";
 
+import { getValidNeighbors } from "./hexagonalGrid/useHexagonGrid";
+
 export default function Experience() {
   const { perfVisible } = useControls({
     perfVisible: true,
@@ -24,6 +26,10 @@ export default function Experience() {
   const { rings, gap } = useLeva();
 
   const { points, hexMap } = useHexagonGrid({ rings, gap });
+
+  const centerHex = { q: 0, r: 0, s: 0 };
+  const neighbors = getValidNeighbors(centerHex, hexMap);
+  console.log("Neighbors of center hex:", neighbors);
 
   const positions = new Float32Array(points.length * 3);
   points.forEach((p, i) => {
