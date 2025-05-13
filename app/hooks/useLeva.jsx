@@ -10,15 +10,15 @@ export default function useLeva() {
         step: 0.01,
       },
       rings: {
-        value: 1,
-        min: 1,
+        value: 0,
+        min: 0,
         max: 10,
       },
       gap: {
-        value: 1,
-        min: 1,
+        value: 0.58,
+        min: 0.58,
         max: 5,
-        step: 0.1,
+        step: 0.01,
       },
     }),
   });

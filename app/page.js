@@ -1,4 +1,8 @@
 "use client";
+
+import { ThemeProvider } from "styled-components";
+import { QUERIES } from "./interface/constants";
+
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
@@ -19,7 +23,7 @@ export default function Experience() {
 
   const { rings, gap } = useLeva();
 
-  const points = useHexagonGrid({ rings, gap });
+  const { points, hexMap } = useHexagonGrid({ rings, gap });
 
   const positions = new Float32Array(points.length * 3);
   points.forEach((p, i) => {
@@ -27,18 +31,19 @@ export default function Experience() {
   });
 
   return (
-    <Canvas shadows>
-      {perfVisible && <Perf position="top-left" />}
-      <OrbitControls />
-      <axesHelper size={5} />
-      <ambientLight intensity={3} />
-      <directionalLight position={[2, 1, 0]} intensity={5} />
+    <ThemeProvider theme={{ queries: QUERIES }}>
+      <Canvas shadows>
+        {perfVisible && <Perf position="top-left" />}
+        <OrbitControls />
+        <axesHelper size={5} />
+        <ambientLight intensity={3} />
+        <directionalLight position={[2, 1, 0]} intensity={5} />
+        <CameraSettings />
 
-      <CameraSettings />
-
-      <Center>
-        <HexGridGeometry points={points} />
-      </Center>
-    </Canvas>
+        <Center>
+          <HexGridGeometry points={points} />
+        </Center>
+      </Canvas>
+    </ThemeProvider>
   );
 }
